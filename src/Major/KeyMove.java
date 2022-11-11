@@ -1,11 +1,11 @@
-package Main;
+package Major;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyMove implements KeyListener {
 
-    public boolean upPressed, downPressed, rightPressed, leftPressed;
+    public boolean upPressed, downPressed, rightPressed, leftPressed, textHint;
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -26,6 +26,9 @@ public class KeyMove implements KeyListener {
         if(x == KeyEvent.VK_LEFT){
             leftPressed = true;
         }
+        if(x == KeyEvent.VK_H){
+            textHint = true;
+        }
     }
 
     @Override
@@ -43,6 +46,9 @@ public class KeyMove implements KeyListener {
         }
         if(x == KeyEvent.VK_LEFT){
             leftPressed = false;
+        }
+        if(x == KeyEvent.VK_H){
+            textHint = false;
         }
     }
 }

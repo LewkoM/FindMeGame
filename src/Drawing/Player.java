@@ -1,7 +1,7 @@
-package Mechanics;
+package Drawing;
 
-import Main.KeyMove;
-import Main.Panel;
+import Major.KeyMove;
+import Major.PanelG;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -9,16 +9,27 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
 
-public class Player extends World {
+public class Player {
 
-    Panel panel;
+    public int xPos;
+    public int yPos;
+    public int moveSpeed;
+    public BufferedImage img, imgBack;
+
+
+    PanelG panel;
     KeyMove key;
 
-    public Player (Panel panel, KeyMove key) {
+
+    public Player (PanelG panel, KeyMove key) {
         this.panel=panel;
         this.key = key;
+
         PlayerSettings();
-        PlayerIMG();
+        PlayerBackIMG();
+    }
+    public Player(){
+
     }
 
     public void PlayerSettings() {
@@ -29,11 +40,11 @@ public class Player extends World {
 
     }
 
-    public void PlayerIMG() {
+    public void PlayerBackIMG() {
         try{
 
             img = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/PlayerIMG/mushroom.png")));
-
+            imgBack = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Background/greenback.png")));
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -62,10 +73,17 @@ public class Player extends World {
                 yPos += moveSpeed;
             }
         }
+
+
     }
 
-    public void draw(Graphics2D graph){
+    public void drawPlay(Graphics2D graph){
 
         graph.drawImage(img, xPos,yPos, panel.basicSizeBox * 3/2,panel.basicSizeBox * 3/2,null);
     }
+    public void drawBack(Graphics2D graph){
+
+        graph.drawImage(imgBack, 0,0,null);
+    }
+
 }
