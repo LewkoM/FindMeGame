@@ -1,42 +1,50 @@
 package Drawing;
-
-import Major.PanelG;
-
-import java.awt.*;
 import java.awt.image.BufferedImage;
-
 import java.util.Random;
-
+/**
+ * Class related to generating unique objects (figures/solids) and their position on the screen
+ */
 public class Draw {
-    //public int x = 0, y = 0;
+    /**
+     * Variable related to uploading images
+     */
     public BufferedImage img;
+    /**
+     * Int array with numbers of figures/solid that will be drawn on the screen
+     */
     int[] figNum = new int[10];
+    /**
+     * Int array with X-position of i-figure/solid (i(0-9))
+     */
     int[] XdrawPos = new int[10];
+    /**
+     * Int array with Y-position of i-figure/solid (i(0-9))
+     */
     int[] YdrawPos = new int[10];
+    /**
+     * X and Y position of correct/required figure or solid drawn on the screen
+     */
     public static int wantedFigX, wantedFigY;
+    /**
+     * A name of the required object
+     */
     public static String wantedFigName;
+    /**
+     * A String announcement of correct object
+     */
     public static String displayString;
-    public static int xHelp;
-    public static int lvlpom=1;
+    /**
+     * Auxiliary variable to randomizing objects
+     */
+    public static int varRandWantedFig;
+    /**
+     * Current game lvl
+     */
+    public static int lvl=1;
 
-
-    Font fontHelvetica;
-    Font fontRoman;
-
-    boolean displayFindme=true;
-    int findmeTime=0;
-    int tryAgainTime=0;
-    boolean displayTryAgain=false;
-    boolean displayGood=false;
-
-
-    public Draw(){
-        Player player = new Player();
-        fontHelvetica = new Font("Helvetica", Font.BOLD, 40);
-        fontRoman = new Font("Roman", Font.BOLD, 33);
-
-    }
-
+    /**
+     * Method that randomizes 10 unique numbers
+     */
     public void RandomFig() {
 
         Random rand = new Random();
@@ -44,7 +52,6 @@ public class Draw {
         for (int i = 0; i < 10; i++) {
             int whatFig = rand.nextInt(16);
             boolean clone = false;
-            // System.out.println("Nr petli to: "+i+ "Losowa to: "+whatFig );
             for (int k=0; k <10; k++){
                 if (whatFig == figNum[k]) {
                     clone = true;
@@ -53,14 +60,15 @@ public class Draw {
             }
             if(!clone){
                 figNum[i]=whatFig;
-                //System.out.println("to jest liczba: " + (i+1) + " i wynosi:           " + figNum[i]);
             }
             else{
                 i--;
             }
         }
     }
-
+    /**
+     * Method that randomizes 10 unique objects X and Y-position on the screen
+     */
     public void RandomPosBoxes() {
         int x, y;
         Random randX = new Random();
@@ -75,7 +83,7 @@ public class Draw {
                 y = randY.nextInt(112) + 304;
                 YdrawPos[i] = y;
             } else if (i == 8 || i == 9) {
-                y = randY.nextInt(112) + 560;
+                y = randY.nextInt(112) + 530;
                 YdrawPos[i] = y;
             }
         }
@@ -98,17 +106,18 @@ public class Draw {
             }
         }
     }
-
+    /**
+     * Method that assigns a name to a correct object
+     */
     public void WantedFigure(){
-        //int xHelp;
-
+        varRandWantedFig=0;
         Random rand = new Random();
-        xHelp = rand.nextInt(10);
-        wantedFigX = XdrawPos[xHelp];
-        wantedFigY = YdrawPos[xHelp];
-        if( lvlpom >=1 && lvlpom <=5)
+        varRandWantedFig = rand.nextInt(10);
+        wantedFigX = XdrawPos[varRandWantedFig];
+        wantedFigY = YdrawPos[varRandWantedFig];
+        if(lvl >=1 && lvl <=5)
         {
-            switch (figNum[xHelp]) {
+            switch (figNum[varRandWantedFig]) {
 
                 case 0:
                     wantedFigName = "BLACK CIRCLE";
@@ -163,9 +172,9 @@ public class Draw {
             }
             displayString = "FIND A " + wantedFigName + "!";
         }
-        if(lvlpom >=6 && lvlpom <=10)
+        if(lvl >=6 && lvl <=10)
         {
-            switch (figNum[xHelp]) {
+            switch (figNum[varRandWantedFig]) {
 
                 case 0:
                     wantedFigName = "BLACK SPHERE";
@@ -222,54 +231,6 @@ public class Draw {
             displayString = "FIND A " + wantedFigName + "!";
 
         }
-
-    }
-
-    public void drawDraw(Graphics2D graph){
-        System.out.println("level:  "+ lvlpom);
-
-        if(displayFindme){
-            graph.setFont(fontHelvetica);
-            graph.setColor(Color.GREEN);
-            int textWidth = graph.getFontMetrics().stringWidth(displayString);
-            int textX = 1152/2 - textWidth/2;
-            graph.drawString(displayString, textX, 600);
-            //if(nextLvl)
-            findmeTime++;
-        }
-        if(findmeTime > 100){
-            displayFindme = false;
-            findmeTime=0;
-        }
-
-        if(displayTryAgain){
-            graph.setFont(fontRoman);
-            graph.setColor(Color.red);
-            int textWidth = graph.getFontMetrics().stringWidth("BAD CHOICE! LEVEL RESTARTED!");
-            int textX = 1152/2 - textWidth/2;
-            graph.drawString("BAD CHOICE! LEVEL RESTARTED!", textX, 520);
-            //if(nextLvl)
-            tryAgainTime++;
-        }
-        if(tryAgainTime > 90){
-            displayTryAgain = false;
-            tryAgainTime=0;
-        }
-
-        if(displayGood){
-            graph.setFont(fontRoman);
-            graph.setColor(Color.red);
-            int textWidth = graph.getFontMetrics().stringWidth("GOOD CHOICE! LEVEL UP!");
-            int textX = 1152/2 - textWidth/2;
-            graph.drawString("GOOD CHOICE! LEVEL UP!", textX, 520);
-            //if(nextLvl)
-            tryAgainTime++;
-        }
-        if(tryAgainTime > 90){
-            displayGood = false;
-            tryAgainTime=0;
-        }
-
 
     }
 

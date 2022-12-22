@@ -1,39 +1,48 @@
 package Drawing;
 
-
 import Major.PanelG;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
 import java.util.Objects;
 
-
+/**
+ * Class related to uploading and drawing objects (figures/solids), and collision detection
+ */
 public class Figures extends Draw{
     Graphics2D graph;
+    /**
+     * Says if game is over 
+     */
     public  boolean gameOver=false;
+    /**
+     * Says if the object choice is correct 
+     */
     public boolean nextLvl=false;
     PanelG panel;
+    /**
+     * Draw array of figures
+     */
     Draw[] figures;
-
-    int x;
-    int y;
-
+    /**
+     * Figures constructor
+     * @param panel game panel
+     */
     public Figures (PanelG panel)  {
         super();
         this.panel = panel;
 
         figures = new Draw[16];
-        FiguresImages();
+        figuresImages();
         RandomFig();
         RandomPosBoxes();
         WantedFigure();
-
     }
-
-
-    public void FiguresImages()  {
-        if( lvlpom<=5 && lvlpom >=1)
+    /**
+     * Method that uploads figures/solids images
+     */
+    public void figuresImages()  {
+        if( lvl<=5 && lvl >=1)
         {
             try {
                 figures[0] = new Draw();
@@ -94,7 +103,7 @@ public class Figures extends Draw{
         }
 
 
-        if(lvlpom >=6 && lvlpom <=10)
+        if(lvl >=6 && lvl <=10)
         {
             try {
                 figures[0] = new Draw();
@@ -154,99 +163,110 @@ public class Figures extends Draw{
             }
         }
     }
+    /**
+     * Method that detects a collision between player and drawn objects
+     */
+    public void detection() {
 
+        Rectangle playerArea = new Rectangle(panel.player.xPos + 6, panel.player.yPos + 12, 60, 60);
 
-    public void det() {
-        x = panel.player.xPos;
-        y = panel.player.yPos;
-
-
-        Rectangle solidArea = new Rectangle(x + 6, y + 12, 60, 60);
-
-            if (solidArea.intersects(new Rectangle(XdrawPos[xHelp], YdrawPos[xHelp], 50, 50))){
-                System.out.println("prawidlowa figura");
+            if (playerArea.intersects(new Rectangle(XdrawPos[varRandWantedFig], YdrawPos[varRandWantedFig], 50, 50))){
                 nextLvl=true;
-
             }
-            else if(solidArea.intersects(new Rectangle(XdrawPos[0], YdrawPos[0], 50, 50)) && xHelp!=0){
-                System.out.println("nieprawidlowa figura");
+            else if(playerArea.intersects(new Rectangle(XdrawPos[0], YdrawPos[0], 50, 50)) && varRandWantedFig!=0){
                 gameOver=true;
             }
-            else if(solidArea.intersects(new Rectangle(XdrawPos[1], YdrawPos[1], 50, 50))&& xHelp!=1){
-            System.out.println("nieprawidlowa figura");
+            else if(playerArea.intersects(new Rectangle(XdrawPos[1], YdrawPos[1], 50, 50))&& varRandWantedFig!=1){
                 gameOver=true;
             }
-            else if(solidArea.intersects(new Rectangle(XdrawPos[2], YdrawPos[2], 50, 50))&& xHelp!=2){
-                System.out.println("nieprawidlowa figura");
+            else if(playerArea.intersects(new Rectangle(XdrawPos[2], YdrawPos[2], 50, 50))&& varRandWantedFig!=2){
                 gameOver=true;
             }
-            else if(solidArea.intersects(new Rectangle(XdrawPos[3], YdrawPos[3], 50, 50))&& xHelp!=3){
-                System.out.println("nieprawidlowa figura");
+            else if(playerArea.intersects(new Rectangle(XdrawPos[3], YdrawPos[3], 50, 50))&& varRandWantedFig!=3){
                 gameOver=true;
             }
-            else if(solidArea.intersects(new Rectangle(XdrawPos[4], YdrawPos[4], 50, 50))&& xHelp!=4){
-                System.out.println("nieprawidlowa figura");
+            else if(playerArea.intersects(new Rectangle(XdrawPos[4], YdrawPos[4], 50, 50))&& varRandWantedFig!=4){
                 gameOver=true;
             }
-             else if(solidArea.intersects(new Rectangle(XdrawPos[5], YdrawPos[5], 50, 50))&& xHelp!=5){
-                 System.out.println("nieprawidlowa figura");
+            else if(playerArea.intersects(new Rectangle(XdrawPos[5], YdrawPos[5], 50, 50))&& varRandWantedFig!=5){
                 gameOver=true;
-             }
-             else if(solidArea.intersects(new Rectangle(XdrawPos[6], YdrawPos[6], 50, 50))&& xHelp!=6){
-                 System.out.println("nieprawidlowa figura");
+            }
+            else if(playerArea.intersects(new Rectangle(XdrawPos[6], YdrawPos[6], 50, 50))&& varRandWantedFig!=6){
                 gameOver=true;
-             }
-             else if(solidArea.intersects(new Rectangle(XdrawPos[7], YdrawPos[7], 50, 50))&& xHelp!=7){
-                 System.out.println("nieprawidlowa figura");
+            }
+            else if(playerArea.intersects(new Rectangle(XdrawPos[7], YdrawPos[7], 50, 50))&& varRandWantedFig!=7){
                 gameOver=true;
-             }
-             else if(solidArea.intersects(new Rectangle(XdrawPos[8], YdrawPos[8], 50, 50))&& xHelp!=8){
-                 System.out.println("nieprawidlowa figura");
+            }
+            else if(playerArea.intersects(new Rectangle(XdrawPos[8], YdrawPos[8], 50, 50))&& varRandWantedFig!=8){
                 gameOver=true;
-             }
-             else if(solidArea.intersects(new Rectangle(XdrawPos[9], YdrawPos[9], 50, 50))&& xHelp!=9){
-                 System.out.println("nieprawidlowa figura");
+            }
+            else if(playerArea.intersects(new Rectangle(XdrawPos[9], YdrawPos[9], 50, 50))&& varRandWantedFig!=9){
                 gameOver=true;
-             }
-
+            }
     }
-
+    /**
+     * Updates when the choice is correct
+     */
     public void updateGood(){
-        FiguresImages();
+        if(lvl==11){
+            panel.gameState=panel.endState;
+            lvl=1;
+        }
+        figuresImages();
         RandomFig();
         RandomPosBoxes();
         WantedFigure();
 
-
-        displayFindme=true;
-        displayGood=true;
+        panel.newDisp.findmeTime=0;
+        panel.newDisp.displayFindme=true;
+        panel.newDisp.displayGood=true;
     }
-
+    /**
+     * Updates when the choice is not correct
+     */
     public void updateBad(){
-        FiguresImages();
+        figuresImages();
         RandomFig();
         RandomPosBoxes();
         WantedFigure();
 
-
-        displayFindme=true;
-        displayTryAgain=true;
+        panel.newDisp.findmeTime=0;
+        panel.newDisp.displayFindme=true;
+        panel.newDisp.displayTryAgain=true;
     }
-
-
+    /**
+     * Updates when the game is to be restarted by the user
+     */
+    public void updateResetGame(){
+        panel.newDisp.seconds=0;
+        panel.newDisp.minutes=0;
+        lvl=1;
+        figuresImages();
+        RandomFig();
+        RandomPosBoxes();
+        WantedFigure();
+        panel.player.PlayerSettings();
+        panel.newDisp.displayGood=false;
+        panel.newDisp.findmeTime=0;
+        panel.newDisp.displayFindme=true;
+    }
+    /**
+     * Method that draws 10 objects on the screen
+     * @param graph Graphics2D
+     */
     public void drawFig(Graphics2D graph){
         this.graph = graph;
-        //if(panel.player.lvlpom )
-        //FiguresImages();
-        det();
+        detection();
         figuresDrawing();
-        drawDraw(graph);
 
-        System.out.println("Figura "+wantedFigName + " X: " + wantedFigX + " Y: "+wantedFigY);
-        System.out.println(displayString);
-        System.out.println("to jest xHelp"+xHelp);
+        //System.out.println("Figura "+wantedFigName + " X: " + wantedFigX + " Y: "+wantedFigY); // help display in the terminal
+        //System.out.println(displayString);
+
 
     }
+    /**
+     * Addition to the drawing method
+     */
     public void figuresDrawing(){
         graph.drawImage(figures[figNum[0]].img, XdrawPos[0] , YdrawPos[0], null);
         graph.drawImage(figures[figNum[1]].img, XdrawPos[1] , YdrawPos[1], null);
