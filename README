@@ -1,0 +1,17 @@
+1.Game title:
+  "Find me"
+
+2. Production technology:
+Java SDK
+
+3. Purpose of the game:
+The aim of the game is to learn geometric figures and colors. The game activates the cognitive functions of the brain and supports visual
+memorization through newer and newer shapes and combinations. In addition, it teaches patience when the character has to move to the top of the board,
+carefully avoiding incorrect pieces. The game is addressed mainly to preschool children, as well as to people with mental retardation and people with a 
+history of neurological diseases.
+
+4. Description:
+The player's task, using the keyboard, is to find the appropriate geometric figure among many possible combinations located in the areas of the entire board,
+which is additionally filled with a specific color. The position, shape and color of the figures will change randomly each time you start a level.
+As a result of the correct choice, the player will be promoted to higher levels (self-improvement), while if selected incorrectly, the game levels will be 
+reset and the player will start the game from the beginning, i.e. from the first level.
